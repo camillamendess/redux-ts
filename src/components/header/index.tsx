@@ -9,6 +9,7 @@ import * as Styles from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/root-reducer";
 import UserActionTypes from "../../redux/user/action-types";
+import { loginUser, logoutUser } from "../../redux/user/actions";
 
 const Header = () => {
   const [cartIsVisible, setCartIsVisible] = useState(false);
@@ -23,16 +24,11 @@ const Header = () => {
   };
 
   const handleLoginClick = () => {
-    dispatch({
-      type: UserActionTypes.LOGIN,
-      payload: { name: "John Doe", email: "John@gmail.com" }
-    });
+    dispatch(loginUser({ name: "John Doe", email: "John@gmail.com" }));
   }
 
   const handleLogoutClick = () => {
-    dispatch({
-      type: UserActionTypes.LOGOUT
-    });
+    dispatch(logoutUser());
   }
 
   return (
