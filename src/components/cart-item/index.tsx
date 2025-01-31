@@ -5,10 +5,10 @@ import { AiOutlinePlus, AiOutlineMinus, AiOutlineClose } from "react-icons/ai";
 import * as Styles from "./styles";
 
 interface ProductProps {
-  imageUrl: string;
-  name: string;
+  id: string;
   price: number;
-  quantity: number;
+  name: string;
+  imageUrl: string;
 }
 
 const CartItem: React.FC<{ product: ProductProps }> = ({ product }) => {
@@ -32,7 +32,7 @@ const CartItem: React.FC<{ product: ProductProps }> = ({ product }) => {
             onClick={handleDecreaseClick}
             aria-label={`Decrease quantity of ${product.name}`}
           />
-          <p>{product.quantity}</p>
+          {/* <p>{product.quantity}</p> */}
           <AiOutlinePlus
             size={20}
             onClick={handleIncreaseClick}
