@@ -13,7 +13,12 @@ interface CartProps {
 const Cart: React.FC<CartProps> = ({ isVisible, setIsVisible }) => {
   const handleEscapeAreaClick = () => setIsVisible(false);
 
-  const { products } = useSelector((state: RootState) => state.cartReducer);
+  const cartState = useSelector((state: RootState) => state.cartReducer);
+  console.log("Cart state:", cartState);
+
+  // Acesse os produtos dentro dos objetos
+  const allProducts = cartState.products;
+  console.log("Produtos renderizados:", allProducts);
 
   return (
     <Styles.CartContainer isVisible={isVisible}>
@@ -21,7 +26,7 @@ const Cart: React.FC<CartProps> = ({ isVisible, setIsVisible }) => {
       <Styles.CartContent>
         <Styles.CartTitle>Seu Carrinho</Styles.CartTitle>
 
-        {products.map(product => <CartItem key={product.id} product={product} />)}
+        {allProducts.map((product) => <CartItem key={product.id} product={product} />)}
       </Styles.CartContent>
     </Styles.CartContainer>
   );

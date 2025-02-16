@@ -9,6 +9,7 @@ interface ProductProps {
   price: number;
   name: string;
   imageUrl: string;
+  quantity?: number;
 }
 
 const CartItem: React.FC<{ product: ProductProps }> = ({ product }) => {
@@ -32,7 +33,7 @@ const CartItem: React.FC<{ product: ProductProps }> = ({ product }) => {
             onClick={handleDecreaseClick}
             aria-label={`Decrease quantity of ${product.name}`}
           />
-          {/* <p>{product.quantity}</p> */}
+          <p>{product.quantity}</p>
           <AiOutlinePlus
             size={20}
             onClick={handleIncreaseClick}

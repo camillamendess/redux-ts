@@ -14,13 +14,21 @@ interface ProductProps {
   price: number;
   name: string;
   imageUrl: string;
+  quantity?: number;
 }
 
 const ProductItem: React.FC<{ product: ProductProps }> = ({ product }) => {
   const dispatch = useDispatch();
   const handleProductClick = () => {
-    dispatch(addProductToCart({ products: [product], productsTotalPrice: product.price }));
-  };
+    dispatch(
+      addProductToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        imageUrl: product.imageUrl,
+      })
+    );
+  }
 
   return (
     <Styles.ProductContainer>

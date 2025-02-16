@@ -1,15 +1,11 @@
 import CartActionTypes from "./action-types";
 
 interface AddProductToCartPayload {
-  products: ProductProps[];
-  productsTotalPrice: number;
-}
-
-interface ProductProps {
   id: string;
   price: number;
   name: string;
   imageUrl: string;
+  quantity?: number;
 }
 
 export const addProductToCart = (payload: AddProductToCartPayload) => ({

@@ -5,6 +5,7 @@ interface ProductProps {
   price: number;
   name: string;
   imageUrl: string;
+  quantity: number;
 }
 
 interface initialStateProps {
@@ -12,28 +13,50 @@ interface initialStateProps {
   productsTotalPrice: number;
 }
 
-const initialState: initialStateProps = {
-  products: [],
-  productsTotalPrice: 0
-}
-
 interface ActionCart {
   type: string;
   payload?: any;
 }
 
+const initialState: initialStateProps = {
+  products: [],
+  productsTotalPrice: 0,
+};
+
 const cartReducer = (state = initialState, action: ActionCart): initialStateProps => {
   switch (action.type) {
-
     case CartActionTypes.ADD_PRODUCT:
+      const productIsAlreadyInCart = state.products.some(
+        (product) => product.id === action.payload.id
+      );
+
+      let updatedProducts;
+
+      if (productIsAlreadyInCart) {
+        updatedProducts = state.products.map((product) =>
+          product.id === action.payload.id
+            ? { ...product, quantity: product.quantity + 1 }
+            : product
+        );
+      } else {
+        updatedProducts = [...state.products, { ...action.payload, quantity: 1 }];
+      }
+
+      // Calcular o total dinamicamente
+      const updatedTotalPrice = updatedProducts.reduce(
+        (total, product) => total + product.price * product.quantity,
+        0
+      );
+
       return {
-        ...initialState,
-        products: [...initialState.products, action.payload],
+        ...state,
+        products: updatedProducts,
+        productsTotalPrice: updatedTotalPrice, // Atualiza o total corretamente
       };
 
     default:
       return state;
   }
-}
+};
 
 export default cartReducer;
