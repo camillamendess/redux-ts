@@ -4,6 +4,7 @@ import * as Styles from "./styles";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/root-reducer";
 import CartItem from "../cart-item";
+import { selectProductsTotalPrice } from "../../redux/cart/cart.selectors"
 
 interface CartProps {
   isVisible: boolean;
@@ -14,11 +15,11 @@ const Cart: React.FC<CartProps> = ({ isVisible, setIsVisible }) => {
   const handleEscapeAreaClick = () => setIsVisible(false);
 
   const cartState = useSelector((state: RootState) => state.cartReducer);
-  console.log("Cart state:", cartState);
 
   // Acesse os produtos dentro dos objetos
   const allProducts = cartState.products;
-  console.log("Produtos renderizados:", allProducts);
+
+  const productsTotalPrice = useSelector(selectProductsTotalPrice);
 
   return (
     <Styles.CartContainer isVisible={isVisible}>
@@ -27,6 +28,8 @@ const Cart: React.FC<CartProps> = ({ isVisible, setIsVisible }) => {
         <Styles.CartTitle>Seu Carrinho</Styles.CartTitle>
 
         {allProducts.map((product) => <CartItem key={product.id} product={product} />)}
+
+        <Styles.CartTotal>R${productsTotalPrice}</Styles.CartTotal>
       </Styles.CartContent>
     </Styles.CartContainer>
   );
