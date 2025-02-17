@@ -4,6 +4,9 @@ import { AiOutlinePlus, AiOutlineMinus, AiOutlineClose } from "react-icons/ai";
 // Styles
 import * as Styles from "./styles";
 
+import { useDispatch } from "react-redux";
+import { removeProductFromCart, increaseProduct, decreaseProduct } from "../../redux/cart/actions";
+
 interface ProductProps {
   id: string;
   price: number;
@@ -13,11 +16,18 @@ interface ProductProps {
 }
 
 const CartItem: React.FC<{ product: ProductProps }> = ({ product }) => {
-  const handleRemoveClick = () => { };
+  const dispatch = useDispatch();
+  const handleRemoveClick = () => {
+    dispatch(removeProductFromCart(product.id));
+  };
 
-  const handleIncreaseClick = () => { };
+  const handleIncreaseClick = () => {
+    dispatch(increaseProduct(product.id));
+  };
 
-  const handleDecreaseClick = () => { };
+  const handleDecreaseClick = () => {
+    dispatch(decreaseProduct(product.id));
+  };
 
   return (
     <Styles.CartItemContainer>
@@ -29,12 +39,14 @@ const CartItem: React.FC<{ product: ProductProps }> = ({ product }) => {
 
         <Styles.CartItemQuantity>
           <AiOutlineMinus
+            color="black"
             size={20}
             onClick={handleDecreaseClick}
             aria-label={`Decrease quantity of ${product.name}`}
           />
           <p>{product.quantity}</p>
           <AiOutlinePlus
+            color="black"
             size={20}
             onClick={handleIncreaseClick}
             aria-label={`Increase quantity of ${product.name}`}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useState } from "react";
 
 // Components
@@ -15,7 +15,12 @@ const Header = () => {
   const [cartIsVisible, setCartIsVisible] = useState(false);
 
   const { currentUser } = useSelector((state: RootState) => state.userReducer);
+  const { products } = useSelector((state: RootState) => state.cartReducer);
   const dispatch = useDispatch();
+
+  const productsCount = useMemo(() => {
+    return products.reduce((acc, curr) => acc + curr.quantity, 0);
+  }, [products])
 
   console.log({ currentUser });
 
@@ -38,7 +43,7 @@ const Header = () => {
         {currentUser ? <div onClick={handleLogoutClick}>Sair</div>
           : <div onClick={handleLoginClick}>Login</div>
         }
-        <div onClick={handleCartClick}>Carrinho</div>
+        <div onClick={handleCartClick}>Carrinho ({productsCount})</div>
       </Styles.Buttons>
 
       <Cart isVisible={cartIsVisible} setIsVisible={setCartIsVisible} />

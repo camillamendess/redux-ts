@@ -55,6 +55,7 @@ export const CartItemQuantity = styled.div`
 
 export const RemoveButton = styled.div`
   margin-right: 20px;
+  color: black;
 
   &:hover {
     cursor: pointer;

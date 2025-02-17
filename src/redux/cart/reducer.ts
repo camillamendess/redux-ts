@@ -26,6 +26,7 @@ const initialState: initialStateProps = {
 const cartReducer = (state = initialState, action: ActionCart): initialStateProps => {
   switch (action.type) {
     case CartActionTypes.ADD_PRODUCT:
+
       const productIsAlreadyInCart = state.products.some(
         (product) => product.id === action.payload.id
       );
@@ -53,6 +54,32 @@ const cartReducer = (state = initialState, action: ActionCart): initialStateProp
         products: updatedProducts,
         productsTotalPrice: updatedTotalPrice, // Atualiza o total corretamente
       };
+
+    case CartActionTypes.REMOVE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.filter(product => product.id !== action.payload)
+      }
+
+    case CartActionTypes.INCREASE_PRODUCT:
+
+      return {
+        ...state,
+        products: state.products.map(product => product.id === action.payload
+          ? { ...product, quantity: product.quantity + 1 }
+          : product
+        )
+      }
+
+    case CartActionTypes.DECREASE_PRODUCT:
+      return {
+        ...state,
+        products: state.products
+          .map(product => product.id === action.payload
+            ? { ...product, quantity: product.quantity - 1 }
+            : product)
+          .filter(product => product.quantity > 0) // Remove o produto se a quantidade for 0
+      }
 
     default:
       return state;
