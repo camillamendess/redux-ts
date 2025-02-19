@@ -7,4 +7,3 @@ Este projeto demonstra como utilizar o **Redux** com **TypeScript** para gerenci
 - **React**: Biblioteca para a construção de interfaces de usuário.
 - **Redux**: Biblioteca para o gerenciamento de estado global.
 - **TypeScript**: Superset do JavaScript que adiciona tipagem estática.
-- **Redux Toolkit**: Ferramenta que simplifica o uso do Redux com boas práticas.
